@@ -2,5 +2,8 @@
 
 require 'weighted_list/version'
 
-module WeightedList
+class WeightedList
+  def initialize; end
+
+  def sample; end
 end
