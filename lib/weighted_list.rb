@@ -7,10 +7,10 @@ class WeightedList
     @hash = hash
   end
 
-  def sample
+  def sample(random: Random)
     return if hash.empty?
     total_weight = hash.values.reduce(&:+)
-    current_target = rand(total_weight)
+    current_target = random.rand(total_weight)
 
     hash.each do |item, weight|
       return item if current_target <= weight

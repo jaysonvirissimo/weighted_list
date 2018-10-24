@@ -15,9 +15,27 @@ RSpec.describe WeightedList do
 
     context 'with a single entry hash' do
       let(:item) { described_class.new(list).sample }
-      let(:list) { { thing: 1 } }
+      let(:list) { { thing: 10 } }
 
       it { expect(item).to eq(:thing) }
+
+      context 'when given an alternative source of entropy' do
+        let(:custom_klass) do
+          class CustomRandomizer
+            def rand; end
+          end
+          CustomRandomizer.new
+        end
+        let(:standard_klass) { Random }
+
+        it 'should use that source of entropy' do
+          allow(standard_klass).to receive(:rand)
+          allow(custom_klass).to receive(:rand).and_return(1)
+          described_class.new(list).sample(random: custom_klass)
+          expect(standard_klass).to_not have_received(:rand)
+          expect(custom_klass).to have_received(:rand)
+        end
+      end
     end
 
     context 'for a list of time zones and their populations (in millions)' do
