@@ -6,23 +6,38 @@ RSpec.describe WeightedList do
   end
 
   describe '#sample' do
+    context 'with an empty hash' do
+      let(:item) { described_class.new(list).sample }
+      let(:list) { {} }
+
+      it { expect(item).to_not be }
+    end
+
+    context 'with a single entry hash' do
+      let(:item) { described_class.new(list).sample }
+      let(:list) { { thing: 1 } }
+
+      it { expect(item).to eq(:thing) }
+    end
+
     context 'for a list of time zones and their populations (in millions)' do
       let(:histogram) do
         (0..size).each_with_object(Hash.new(0)) do |_index, hash|
-          hash[described_class.new(list).sample] += 1
+          outcome = described_class.new(list).sample
+          hash[outcome] += 1
         end
       end
       let(:list) do
-        { 'Eastern': 150, 'Central': 92, 'Mountain': 21, 'Pacific': 53 }.freeze
+        { eastern: 150, central: 92, mountain: 21, pacific: 53 }.freeze
       end
-      let(:precision) { 2 }
-      let(:size) { 1000 }
+      let(:precision) { 0.02 }
+      let(:size) { 10_000 }
 
       it 'randomly selects zones in proportion to their percent of the total' do
-        expect(histogram['Eastern'] / size).to be_within(precision).of(47)
-        expect(histogram['Central'] / size).to be_within(precision).of(29)
-        expect(histogram['Mountain'] / size).to be_within(precision).of(7)
-        expect(histogram['Pacific'] / size).to be_within(precision).of(17)
+        expect(histogram[:eastern].fdiv(size)).to be_within(precision).of(0.47)
+        expect(histogram[:central].fdiv(size)).to be_within(precision).of(0.29)
+        expect(histogram[:mountain].fdiv(size)).to be_within(precision).of(0.07)
+        expect(histogram[:pacific].fdiv(size)).to be_within(precision).of(0.17)
       end
     end
   end
