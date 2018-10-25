@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'weighted_list/version'
+require 'weighted_list/sampler'
 
 class WeightedList
   include Enumerable
@@ -13,15 +14,9 @@ class WeightedList
     hash.keys.each(&block)
   end
 
-  def sample(random: Random)
+  def sample(quantity = nil, random: Random)
     return if hash.empty?
-    total_weight = hash.values.reduce(&:+)
-    current_target = random.rand(total_weight)
-
-    hash.each do |item, weight|
-      return item if current_target <= weight
-      current_target -= weight
-    end
+    return Sampler.new(hash, random: random).call.chosen unless quantity
   end
 
   private
