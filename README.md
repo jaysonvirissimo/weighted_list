@@ -1,8 +1,6 @@
 # WeightedList
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/weighted_list`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+WeightedList is similar to the [weighted_randomizer](https://rubygems.org/gems/weighted_randomizer) gem, but samples without replacement by default matching Ruby's `Array#sample`.
 
 ## Installation
 
@@ -32,7 +30,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/weighted_list.
+Bug reports and pull requests are welcome on GitHub at https://github.com/jaysonvirissimo/weighted_list.
 
 ## License
 
