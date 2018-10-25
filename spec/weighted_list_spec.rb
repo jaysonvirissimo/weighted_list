@@ -5,6 +5,32 @@ RSpec.describe WeightedList do
     expect(WeightedList::VERSION).to be
   end
 
+  describe '#each' do
+    let(:list) { { one: 1, two: 2, three: 3 } }
+    let(:instance) { described_class.new(list) }
+
+    it 'iterates over every list items' do
+      array = []
+
+      instance.each do |element|
+        array.push(element)
+      end
+
+      expect(array.length).to eq(3)
+    end
+  end
+
+  describe '#map' do
+    let(:list) { { one: 1, two: 2, three: 3 } }
+    let(:instance) { described_class.new(list) }
+
+    it 'collects the result from each block' do
+      string = instance.map(&:to_s).join(', ')
+
+      expect(string).to match(/one, two, three/)
+    end
+  end
+
   describe '#sample' do
     context 'with an empty hash' do
       let(:item) { described_class.new(list).sample }

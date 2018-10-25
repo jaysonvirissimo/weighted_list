@@ -3,8 +3,14 @@
 require 'weighted_list/version'
 
 class WeightedList
+  include Enumerable
+
   def initialize(hash)
     @hash = hash
+  end
+
+  def each(&block)
+    hash.keys.each(&block)
   end
 
   def sample(random: Random)

@@ -19,8 +19,11 @@ Or install it yourself as:
     $ gem install weighted_list
 
 ## Usage
-
-TODO: Write usage instructions here
+```ruby
+hash = { eastern: 150, central: 92, mountain: 21, pacific: 53 }
+list = WeightedList.new(hash)
+list.sample # => :eastern
+```
 
 ## Development
 
