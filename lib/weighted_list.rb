@@ -17,7 +17,7 @@ class WeightedList
   def sample(quantity = nil, random: Random)
     @random = random
     return single_item unless quantity
-    (0..quantity).each_with_object(initial_memo) do |_index, memo|
+    (0...quantity).each_with_object(initial_memo) do |_index, memo|
       result = Sampler.new(memo[:current_list], random: random).call
       memo[:chosen].push(result.chosen)
       memo[:current_list] = result.remaining

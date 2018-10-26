@@ -101,6 +101,10 @@ RSpec.describe WeightedList do
       context 'of several' do
         let(:quantity) { 3 }
 
+        it 'should return the number of items requested' do
+          expect(instance.sample(quantity).length).to eq(quantity)
+        end
+
         it 'should not return any repeats' do
           chosen = instance.sample(quantity)
           expect(chosen.length).to eq(chosen.uniq.length)

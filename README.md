@@ -26,9 +26,21 @@ Or install it yourself as:
 
 ## Usage
 ```ruby
-hash = { eastern: 150, central: 92, mountain: 21, pacific: 53 }
-list = WeightedList.new(hash)
-list.sample # => :eastern
+list = WeightedList.new({ eastern: 150, central: 92, mountain: 21, pacific: 53 })
+
+list.sample # => :pacific
+list.sample(1) # => [:central]
+list.sample(3) # => [:central, :eastern, :pacific]
+list.sample(100) # => [:central, :eastern, :pacific, :mountain]
+
+list.map(&:to_s).map(&:capitalize).sort.join(', ') # => "Central, Eastern, Mountain, Pacific"
+
+class CustomRandomizer
+  def rand(n)
+    1.0
+  end
+end
+list.sample(2, random: CustomRandomizer.new) # => [:eastern, :central]
 ```
 
 ## Development
