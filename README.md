@@ -1,6 +1,12 @@
 # WeightedList
 
-WeightedList is similar to the [weighted_randomizer](https://rubygems.org/gems/weighted_randomizer) gem, but samples without replacement by default matching Ruby's `Array#sample`.
+WeightedList attempts to improve on the very popular [weighted_randomizer](https://rubygems.org/gems/weighted_randomizer) gem, by:
+
+1. Sampling *without* replacement, analogous to Ruby's own `Array#sample`
+
+2. Behaving as a typical Ruby collection with `#each`, `#map`, `#sort`, etc...
+
+3. Using any user supplied randomizer that responds to `#rand` with a number
 
 ## Installation
 
