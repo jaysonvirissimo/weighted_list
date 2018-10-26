@@ -114,4 +114,13 @@ RSpec.describe WeightedList do
       end
     end
   end
+
+  describe '#sort' do
+    let(:list) { { a: 10, c: 100, d: 200, b: 1 } }
+    let(:instance) { described_class.new(list) }
+
+    it 'orders the list items' do
+      expect(instance.sort).to match(%i[a b c d])
+    end
+  end
 end
