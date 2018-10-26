@@ -1,6 +1,6 @@
-# WeightedList
+# WeightedList [![Build Status](https://travis-ci.org/jaysonvirissimo/weighted_list.svg?branch=master)](https://travis-ci.org/jaysonvirissimo/weighted_list)
 
-WeightedList attempts to improve on the very popular [weighted_randomizer](https://rubygems.org/gems/weighted_randomizer) gem, by:
+**WeightedList** attempts to improve on the very popular [weighted_randomizer](https://rubygems.org/gems/weighted_randomizer) gem, by:
 
 1. Sampling *without* replacement, analogous to Ruby's own `Array#sample`
 
