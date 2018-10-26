@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
+require 'weighted_list/normalizer'
 require 'weighted_list/version'
 require 'weighted_list/sampler'
 
 class WeightedList
   include Enumerable
 
-  def initialize(hash)
-    # TODO: Normalize weights to allow use of integers or floats
-    @hash = hash
+  def initialize(collection)
+    @hash = Normalizer.call(collection)
   end
 
   def each(&block)
