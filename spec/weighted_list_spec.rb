@@ -75,14 +75,14 @@ RSpec.describe WeightedList do
         let(:list) do
           { eastern: 150, central: 92, mountain: 21, pacific: 53 }.freeze
         end
-        let(:precision) { 0.02 }
-        let(:size) { 10_000 }
+        let(:precision) { 0.01 }
+        let(:size) { 100_000 }
 
         it 'randomly selects zones in proportion to their percent of the total' do
-          expect(histogram[:eastern].fdiv(size)).to be_within(precision).of(0.47)
-          expect(histogram[:central].fdiv(size)).to be_within(precision).of(0.29)
-          expect(histogram[:mountain].fdiv(size)).to be_within(precision).of(0.07)
-          expect(histogram[:pacific].fdiv(size)).to be_within(precision).of(0.17)
+          expect(histogram[:eastern].fdiv(size)).to be_within(precision).of(0.474)
+          expect(histogram[:central].fdiv(size)).to be_within(precision).of(0.291)
+          expect(histogram[:mountain].fdiv(size)).to be_within(precision).of(0.066)
+          expect(histogram[:pacific].fdiv(size)).to be_within(precision).of(0.168)
         end
       end
     end
