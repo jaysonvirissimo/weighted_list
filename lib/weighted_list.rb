@@ -7,6 +7,7 @@ class WeightedList
   include Enumerable
 
   def initialize(hash)
+    # TODO: Normalize weights to allow use of integers or floats
     @hash = hash
   end
 
