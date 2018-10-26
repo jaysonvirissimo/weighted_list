@@ -7,6 +7,10 @@ require 'weighted_list/sampler'
 class WeightedList
   include Enumerable
 
+  def self.[](collection)
+    new(collection)
+  end
+
   def initialize(collection)
     @hash = Normalizer.call(collection)
   end

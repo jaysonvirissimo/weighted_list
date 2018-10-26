@@ -26,7 +26,8 @@ Or install it yourself as:
 
 ## Usage
 ```ruby
-list = WeightedList.new({ eastern: 150, central: 92, mountain: 21, pacific: 53 })
+hash = { eastern: 150, central: 92, mountain: 21, pacific: 53 }
+list = WeightedList[hash]
 
 list.sample # => :pacific
 list.sample(1) # => [:central]

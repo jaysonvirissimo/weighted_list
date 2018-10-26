@@ -7,6 +7,16 @@ RSpec.describe WeightedList do
     expect(WeightedList::VERSION).to be
   end
 
+  describe '.[]' do
+    let(:instance) { described_class[list] }
+
+    it 'returns an instance' do
+      expect(instance).to respond_to(:each)
+      expect(instance).to respond_to(:map)
+      expect(instance).to respond_to(:sample)
+    end
+  end
+
   describe '#each' do
     let(:instance) { described_class.new(list) }
 
