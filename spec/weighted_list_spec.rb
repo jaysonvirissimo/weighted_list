@@ -10,7 +10,7 @@ RSpec.describe WeightedList do
   describe '#each' do
     let(:instance) { described_class.new(list) }
 
-    it 'iterates over every list items' do
+    it 'iterates over list items' do
       array = []
 
       instance.each do |element|
@@ -95,6 +95,21 @@ RSpec.describe WeightedList do
 
         it 'should return a collection' do
           expect(instance.sample(quantity)).to respond_to(:length)
+        end
+      end
+
+      context 'of several' do
+        let(:quantity) { 3 }
+
+        it 'should not return any repeats' do
+          chosen = instance.sample(quantity)
+          expect(chosen.length).to eq(chosen.uniq.length)
+        end
+
+        it 'should return only as many non-repeating items as are available' do
+          chosen = instance.sample(quantity + 10)
+          expect(chosen.length).to eq(list.length)
+          expect(chosen).to_not include(nil)
         end
       end
     end

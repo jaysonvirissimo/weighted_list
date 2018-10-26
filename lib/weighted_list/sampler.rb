@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class WeightedList
   class Sampler
     def initialize(hash, random: Random)
@@ -11,11 +13,12 @@ class WeightedList
 
     private
 
-    attr_reader :chosen, :hash, :random
+    attr_reader :hash, :random
 
     Result = Struct.new(:chosen, :remaining)
 
     def choose
+      return if hash.empty?
       current_target = random.rand(total_weight)
 
       hash.each do |item, weight|
@@ -29,7 +32,7 @@ class WeightedList
     end
 
     def remaining
-      hash.reject { |item, weight| chosen == item }
+      hash.reject { |item, _weight| chosen == item }
     end
 
     def total_weight
