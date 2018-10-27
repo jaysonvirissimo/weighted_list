@@ -12,7 +12,7 @@ class WeightedList
   end
 
   def initialize(collection)
-    @hash = Normalizer.call(collection)
+    @hash = Normalizer.call(collection.clone)
   end
 
   def each(&block)

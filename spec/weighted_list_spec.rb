@@ -56,6 +56,12 @@ RSpec.describe WeightedList do
 
         it { expect(item).to eq(:thing) }
 
+        it 'does not mutate the user-given hash' do
+          original_list = list.dup
+          item
+          expect(list).to eq(original_list)
+        end
+
         context 'when given an alternative source of entropy' do
           let(:custom_klass) do
             class CustomRandomizer
