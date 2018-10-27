@@ -20,13 +20,12 @@ class WeightedList
   end
 
   def sample(quantity = nil, random: Random)
-    @random = random
-    return single_item unless quantity
-    (0...quantity).each_with_object(initial_memo) do |_index, memo|
-      result = Sampler.new(memo[:current_list], random: random).call
-      memo[:chosen].push(result.chosen)
+    return select_item(hash, random: random).selected unless quantity
+    quantity.times.each_with_object(initial_memo) do |_index, memo|
+      result = select_item(memo[:current_list], random: random)
+      memo[:selected].push(result.selected)
       memo[:current_list] = result.remaining
-    end[:chosen].compact
+    end[:selected].compact
   end
 
   private
@@ -34,10 +33,10 @@ class WeightedList
   attr_reader :hash, :random
 
   def initial_memo
-    { chosen: [], current_list: hash }
+    { selected: [], current_list: hash }
   end
 
-  def single_item
-    Sampler.new(hash, random: random).call.chosen
+  def select_item(list, random:)
+    Sampler.new(hash: list, random: random).call
   end
 end
