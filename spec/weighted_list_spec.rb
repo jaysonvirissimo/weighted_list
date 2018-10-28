@@ -43,11 +43,25 @@ RSpec.describe WeightedList do
 
   describe '#sample' do
     context 'without specifying a quantity' do
+      context 'with an empty array' do
+        let(:item) { described_class.new(list).sample }
+        let(:list) { [] }
+
+        it { expect(item).to_not be }
+      end
+
       context 'with an empty hash' do
         let(:item) { described_class.new(list).sample }
         let(:list) { {} }
 
         it { expect(item).to_not be }
+      end
+
+      context 'with a single entry 2D array' do
+        let(:item) { described_class.new(list).sample }
+        let(:list) { [[:thing, 10]] }
+
+        it { expect(item).to eq(:thing) }
       end
 
       context 'with a single entry hash' do
@@ -105,6 +119,14 @@ RSpec.describe WeightedList do
 
     context 'with a specified quantity' do
       let(:instance) { described_class.new(list) }
+
+      context 'of zero' do
+        let(:quantity) { 0 }
+
+        it 'should return an empty collection' do
+          expect(instance.sample(quantity)).to be_empty
+        end
+      end
 
       context 'of one' do
         let(:quantity) { 1 }
