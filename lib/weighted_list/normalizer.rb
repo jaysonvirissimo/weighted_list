@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class WeightedList
   class Normalizer
     def self.call(collection)

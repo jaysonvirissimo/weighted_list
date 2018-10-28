@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['jayson.virissimo@asu.edu']
 
   spec.summary       = 'Sample from a weighted list.'
-  spec.description   = 'Sample from an (enumerable) weighted list without replacement.'
+  spec.description   = 'Randomly sample from an (enumerable) weighted list without replacement.'
   spec.homepage      = 'https://github.com/jaysonvirissimo/weighted_list'
   spec.license       = 'MIT'
 

@@ -28,22 +28,28 @@ Or install it yourself as:
 ```ruby
 collection = { eastern: 150, central: 92, mountain: 21, pacific: 53 }
 # This works too:
-# collection = [[:eastern, 150], [:central, 92], [:mountain, 21], [:pacific, 52]]
+# collection = [[:eastern, 150], [:central, 92], [:mountain, 21], [:pacific, 53]]
 list = WeightedList[collection]
 
+# If you are familiar with Array#sample, none of this will surprise you:
 list.sample # => :pacific
 list.sample(1) # => [:central]
 list.sample(3) # => [:central, :eastern, :pacific]
 list.sample(100) # => [:central, :eastern, :pacific, :mountain]
 
+# It acts like a proper Ruby collection should:
 list.map(&:to_s).map(&:capitalize).sort.join(', ') # => "Central, Eastern, Mountain, Pacific"
 
+# For when you'd like to provide your own entropy or cleanly test deterministically.
 class CustomRandomizer
   def rand(n)
     1.0
   end
 end
 list.sample(2, random: CustomRandomizer.new) # => [:eastern, :central]
+
+# If you want to allow repeats:
+list.sample(4, with_replacement: true) # => [:eastern, :mountain, :eastern, :eastern]
 ```
 
 ## Development

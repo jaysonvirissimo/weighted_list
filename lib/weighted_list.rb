@@ -19,12 +19,12 @@ class WeightedList
     hash.keys.each(&block)
   end
 
-  def sample(quantity = nil, random: Random)
+  def sample(quantity = nil, random: Random, with_replacement: false)
     return select_item(hash, random: random).selected unless quantity
     quantity.times.each_with_object(initial_memo) do |_index, memo|
       result = select_item(memo[:current_list], random: random)
       memo[:selected].push(result.selected)
-      memo[:current_list] = result.remaining
+      memo[:current_list] = (with_replacement ? hash : result.remaining)
     end[:selected].compact
   end
 
