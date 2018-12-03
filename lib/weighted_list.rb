@@ -23,9 +23,10 @@ class WeightedList
     return select_item(hash, random: random).selected unless quantity
     quantity.times.each_with_object(initial_memo) do |_index, memo|
       result = select_item(memo[:current_list], random: random)
+      return memo[:selected] if result.selected.nil?
       memo[:selected].push(result.selected)
       memo[:current_list] = (with_replacement ? hash : result.remaining)
-    end[:selected].compact
+    end[:selected]
   end
 
   private
