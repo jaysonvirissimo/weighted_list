@@ -169,6 +169,31 @@ RSpec.describe WeightedList do
     end
   end
 
+  describe '#shuffle' do
+    let(:instance) { described_class.new(collection) }
+    let(:shuffled) { instance.shuffle }
+
+    it { expect(instance).to respond_to(:shuffle) }
+
+    it 'returns everything in the original collection' do
+      collection.each do |item, weight|
+        expect(shuffled).to include(item)
+      end
+    end
+
+    it 'returns nothing that is not in the original collection' do
+      shuffled.each do |item|
+        expect(collection).to include(item)
+      end
+    end
+
+    context 'for an empty collection' do
+      let(:collection) { {} }
+
+      it { expect(instance.shuffle).to be_empty }
+    end
+  end
+
   describe '#sort' do
     let(:collection) { { a: 10, c: 100, d: 200, b: 1 } }
     let(:instance) { described_class.new(collection) }

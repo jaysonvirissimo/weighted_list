@@ -4,9 +4,11 @@
 
 1. Sampling *without* replacement, analogous to Ruby's own `Array#sample`
 
-2. Behaving as a typical Ruby collection with `#each`, `#map`, `#sort`, etc...
+2. Implementing a weighted shuffle
 
-3. Using any user supplied randomizer that responds to `#rand` with a number
+3. Accepting an external source of randomness for easy deterministic testing
+
+4. Behaving like other Ruby collections with `#each`, `#map`, `#sort`, etc...
 
 ## Installation
 
@@ -40,7 +42,8 @@ list.sample(100) # => [:central, :eastern, :pacific, :mountain]
 # It acts like a proper Ruby collection should:
 list.map(&:to_s).map(&:capitalize).sort.join(', ') # => "Central, Eastern, Mountain, Pacific"
 
-# For when you'd like to provide your own entropy or cleanly test deterministically.
+# For when you'd like to provide your own entropy (perhaps for deterministic tests):
+# Just make sure the object you pass responds to `rand`
 class CustomRandomizer
   def rand(n)
     1.0
@@ -50,6 +53,11 @@ list.sample(2, random: CustomRandomizer.new) # => [:eastern, :central]
 
 # If you want to allow repeats:
 list.sample(4, with_replacement: true) # => [:eastern, :mountain, :eastern, :eastern]
+
+# Shuffle the list while still respecting the weights
+list.shuffle # => [:central, :eastern, :mountain, :pacific]
+list.shuffle # => [:pacific, :eastern, :central, :mountain]
+list.shuffle # => [:pacific, :central, :eastern, :mountain]
 ```
 
 ## Development

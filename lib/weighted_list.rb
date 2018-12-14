@@ -29,6 +29,10 @@ class WeightedList
     end[:selected]
   end
 
+  def shuffle(random: Random)
+    sample(hash.length, random: random)
+  end
+
   private
 
   attr_reader :hash, :random
