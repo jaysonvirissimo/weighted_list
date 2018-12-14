@@ -16,7 +16,7 @@ class WeightedList
   end
 
   def each(&block)
-    hash.keys.each(&block)
+    hash.each_key(&block)
   end
 
   def sample(quantity = nil, random: Random, with_replacement: false)
