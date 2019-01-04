@@ -54,10 +54,13 @@ list.sample(2, random: CustomRandomizer.new) # => [:eastern, :central]
 # If you want to allow repeats:
 list.sample(4, with_replacement: true) # => [:eastern, :mountain, :eastern, :eastern]
 
-# Shuffle the list while still respecting the weights
+# Shuffle the list while still respecting the weights:
 list.shuffle # => [:central, :eastern, :mountain, :pacific]
 list.shuffle # => [:pacific, :eastern, :central, :mountain]
 list.shuffle # => [:pacific, :central, :eastern, :mountain]
+
+# If you want to mutate the original list:
+list.shuffle!
 ```
 
 ## Development

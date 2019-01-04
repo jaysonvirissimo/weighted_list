@@ -33,6 +33,14 @@ class WeightedList
     sample(hash.length, random: random)
   end
 
+  def shuffle!(random: Random)
+    sample(hash.length, random: random).tap do |returned_collection|
+      returned_collection.each_with_object({}) do |item, replace_with|
+        replace_with[item] = hash[item]
+      end.tap { |replace_with| @hash = replace_with }
+    end
+  end
+
   private
 
   attr_reader :hash, :random

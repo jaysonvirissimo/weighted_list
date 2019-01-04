@@ -176,7 +176,7 @@ RSpec.describe WeightedList do
     it { expect(instance).to respond_to(:shuffle) }
 
     it 'returns everything in the original collection' do
-      collection.each do |item, weight|
+      collection.each_key do |item|
         expect(shuffled).to include(item)
       end
     end
@@ -191,6 +191,38 @@ RSpec.describe WeightedList do
       let(:collection) { {} }
 
       it { expect(instance.shuffle).to be_empty }
+    end
+  end
+
+  describe '#shuffle!' do
+    let(:instance) { described_class.new(collection) }
+    let(:private_collection) { instance.send(:hash) }
+    let(:shuffled) { instance.shuffle }
+
+    it 'mutates the original object, but mixes the private collection order' do
+      original_id = instance.object_id
+      changed_order = 10.times.any? do
+        list_before = instance.to_a
+        instance.shuffle!
+        list_after = instance.to_a
+        list_before != list_after
+      end
+      shuffled_id = instance.object_id
+
+      expect(changed_order).to be(true)
+      expect(original_id).to eq(shuffled_id)
+    end
+
+    it 'returns everything in the original collection' do
+      collection.each_key do |item|
+        expect(shuffled).to include(item)
+      end
+    end
+
+    it 'returns nothing that is not in the original collection' do
+      shuffled.each do |item|
+        expect(collection).to include(item)
+      end
     end
   end
 
