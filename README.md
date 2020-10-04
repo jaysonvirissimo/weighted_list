@@ -63,6 +63,19 @@ list.shuffle # => [:pacific, :central, :eastern, :mountain]
 list.shuffle!
 ```
 
+## Get a file SHA256 Hash code and Checksum
+```ruby
+public static string GetChecksum(string file)
+{
+    using (FileStream stream = File.OpenRead(file))
+    {
+        var sha = new SHA256Managed();
+        byte[] checksum = sha.ComputeHash(stream);
+        return BitConverter.ToString(checksum).Replace("-", String.Empty);
+    }
+}
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
